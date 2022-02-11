@@ -10,6 +10,7 @@
 library(shiny);
 library(colourpicker);
 library(shinyBS);
+library(plotly);
 daterange <- as.Date(range(dat1$reporting_date));
 
 # Define UI for application that draws a histogram
@@ -51,7 +52,8 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-            plotOutput("distPlot")
+             plotOutput("distPlot")
+            ,plotlyOutput("plotlyVersion")
         )
     )
 ))

@@ -31,4 +31,16 @@ shinyServer(function(input, output, session) {
             geom_vline(xintercept = input$vline,col='blue',alpha=0.5,size=2);
     });
 
+    output$plotlyVersion <- renderPlotly({
+        req(input$yvals);
+        plotlines <- lapply(input$yvals,function(yy){
+            geom_line(aes_string(y=yy),col=input[[paste0('color_',yy)]])});
+        plotlyout <- subset(dat1,between(reporting_date
+                            ,input$datefilter[1],input$datefilter[2])) %>%
+            ggplot(aes(x=reporting_date,y=total_case_daily_change,group=1)) +
+            plotlines +
+            geom_vline(xintercept = input$vline,col='blue',alpha=0.5,size=2);
+        plotlyout <- ggplotly(plotlyout) %>% layout(dragmode='select') %>% event_register("plotly_click");
+    })
+
 })
