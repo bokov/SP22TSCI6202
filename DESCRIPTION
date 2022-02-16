@@ -98,3 +98,5 @@ Imports:
   xtable,
   yaml,
   zip
+Remotes:
+  ramnathv/rCharts
