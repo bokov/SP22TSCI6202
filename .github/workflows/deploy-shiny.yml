@@ -14,24 +14,16 @@ jobs:
   deploy-shiny:
     runs-on: ubuntu-latest
     environment: default_env
-    env:
-      SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
-      SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
+    #env:
+    #  SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
+    #  SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
     steps:
       - uses: actions/checkout@v2
-      #- uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-r@v2
       
       - name: Install cURL Headers
         if: runner.os == 'Linux'
         run: sudo apt-get install libcurl4-openssl-dev
-
-      - name: test env
-        run: |
-          message("env: ","${{ env.SHINYAPPS_TOKEN }}")
-          message("secrets: ","${{ secrets.SHINYAPPS_TOKEN }}")
-          message("Sys: ",Sys.getenv("SHINYAPPS_TOKEN"))
-        shell: Rscript {0}
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -40,15 +32,10 @@ jobs:
             any::shiny
             any::rsconnect
             
-      #- name: Install shiny
-      #  run: |
-      #    install.packages(c("shiny", "rsconnect"))
-      #  shell: Rscript {0}      
-      
       - name: Push to shiny.io
         run: |
           sessionInfo()
-          rsconnect::setAccountInfo(name="bokov", token="${{ env.SHINYAPPS_TOKEN }}", secret="${{ env.SHINYAPPS_SECRET }}")
+          rsconnect::setAccountInfo(name="bokov", token=Sys.getenv('SHINYAPPS_TOKEN'), secret=Sys.getenv('SHINYAPPS_SECRET'))
           rsconnect::appDependencies(appDir=file.path(getwd(),"BexarCOVID_6202")) 
           rsconnect::deployApp(appDir=file.path(getwd(),"BexarCOVID_6202"),appName = "SP22TSCI6202_ci")
         shell: Rscript {0}
