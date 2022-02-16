@@ -1,14 +1,3 @@
-if(FALSE){
-  library(RColorBrewer)
-  library(bit)
-  library(bit64)
-  library(cellranger)
-  library(clipr)
-  library(colorspace)
-  library(colourpicker)
-  library(cpp11)
-  library(crosstalk)
-}
 
 library(jsonlite);
 library(rio);
@@ -16,11 +5,17 @@ library(reactlog);
 library(dplyr);
 
 # bogus packages to make shinyapps behave
+library(RColorBrewer)
+library(bit)
+library(bit64)
+library(colorspace)
+library(colourpicker)
+library(cpp11)
+library(crosstalk)
 library(BH)
 library(MASS)
 library(Matrix)
 library(R6)
-library(RColorBrewer)
 library(Rcpp)
 library(askpass)
 library(base64enc)
@@ -29,12 +24,8 @@ library(cachem)
 library(cellranger)
 library(cli)
 library(clipr)
-library(colorspace)
-library(colourpicker)
 library(commonmark)
-library(cpp11)
 library(crayon)
-library(crosstalk)
 library(curl)
 library(data.table)
 library(digest)
