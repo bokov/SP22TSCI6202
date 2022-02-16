@@ -24,7 +24,14 @@ jobs:
       - name: Install cURL Headers
         if: runner.os == 'Linux'
         run: sudo apt-get install libcurl4-openssl-dev
-        
+
+      - name: test env
+        run: |
+          message("env: ","${{ env.SHINYAPPS_TOKEN }}")
+          message("secrets: ","${{ secrets.SHINYAPPS_TOKEN }}")
+          message("Sys: ",Sys.getenv("SHINYAPPS_TOKEN"))
+        shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
