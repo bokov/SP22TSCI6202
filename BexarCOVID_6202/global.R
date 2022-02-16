@@ -1,3 +1,15 @@
+if(FALSE){
+  library(RColorBrewer)
+  library(bit)
+  library(bit64)
+  library(cellranger)
+  library(clipr)
+  library(colorspace)
+  library(colourpicker)
+  library(cpp11)
+  library(crosstalk)
+}
+
 library(jsonlite);
 library(rio);
 library(reactlog);
@@ -92,6 +104,7 @@ library(withr)
 library(xtable)
 library(yaml)
 library(zip)
+
 
 
 options(shiny.reactlog=TRUE);
