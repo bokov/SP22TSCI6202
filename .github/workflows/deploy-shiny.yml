@@ -13,6 +13,9 @@ on: [push,pull_request]
 jobs:
   deploy-shiny:
     runs-on: ubuntu-latest
+    env:
+      SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
+      SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
     steps:
       - uses: actions/checkout@v2
       #- uses: r-lib/actions/setup-r@master
@@ -36,6 +39,6 @@ jobs:
       
       - name: Push to shiny.io
         run: |
-          rsconnect::setAccountInfo(name="bokov", token="${{secrets.SHINYAPPS_TOKEN}}", secret="${{secrets.SHINYAPPS_SECRET}}")
+          rsconnect::setAccountInfo(name="bokov", token="${{ env.SHINYAPPS_TOKEN }}", secret="${{ env.SHINYAPPS_SECRET }}")
           rsconnect::deployApp(appDir=file.path(getwd(),"BexarCOVID_6202"),appName = "SP22TSCI6202_ci")
         shell: Rscript {0}
