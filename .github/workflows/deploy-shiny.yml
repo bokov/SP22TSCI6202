@@ -15,16 +15,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@master
+      #- uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@v2
+      
       - name: Install cURL Headers
+        if: runner.os == 'Linux'
         run: sudo apt-get install libcurl4-openssl-dev
-      - name: Install shiny
-        run: |
-          install.packages(c("shiny", "rsconnect"))
-        shell: Rscript {0}      
+        
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 2
+          extra-packages: |
+            any::shiny
+            any::rsconnect
+            
+      #- name: Install shiny
+      #  run: |
+      #    install.packages(c("shiny", "rsconnect"))
+      #  shell: Rscript {0}      
+      
       - name: Push to shiny.io
         run: |
-          Rscript -e "rsconnect::setAccountInfo(name='bokov', token='${{secrets.SHINYAPPS_TOKEN}}', secret='${{secrets.SHINYAPPS_SECRET}}')"
+          Rscript -e "rsconnect::setAccountInfo(name='bokov', token=${{secrets.SHINYAPPS_TOKEN}}, secret=${{secrets.SHINYAPPS_SECRET}})"
           Rscript -e "rsconnect::deployApp(appDir=file.path(getwd(),'BexarCOVID_6202'),appName = 'SP22TSCI6202_ci')" 
           
   
