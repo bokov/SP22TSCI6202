@@ -47,6 +47,8 @@ jobs:
       
       - name: Push to shiny.io
         run: |
+          sessionInfo()
           rsconnect::setAccountInfo(name="bokov", token="${{ env.SHINYAPPS_TOKEN }}", secret="${{ env.SHINYAPPS_SECRET }}")
+          rsconnect::appDependencies(appDir=file.path(getwd(),"BexarCOVID_6202")) 
           rsconnect::deployApp(appDir=file.path(getwd(),"BexarCOVID_6202"),appName = "SP22TSCI6202_ci")
         shell: Rscript {0}
