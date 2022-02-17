@@ -1,6 +1,6 @@
 Package: BexarCOVID_6202
 Title: ShinyApps Example Dashboard, COVID-19 in Bexar County
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person("Alex", "Bokov", email = "alex.bokov@gmail.com", role = c("aut","cre"),
                     comment=c(ORCID="0000-0002-0511-9815"))
 Description: User-configurable COVID-19 temporal visualization
