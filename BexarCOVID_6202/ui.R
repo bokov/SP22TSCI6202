@@ -25,7 +25,8 @@ shinyUI(fluidPage(
             actionButton('btnMenu',"☰"),
             conditionalPanel("input.btnMenu%2==0",
                              selectInput('yvals','Plot lines:',choices=names(dat1)[-(1:3)]
-                                         ,selected=names(dat1)[4]
+                                         ,selected= 'count_7_day_moving_avg'
+                                         # names(dat1)[4]
                                          ,multiple=T,selectize = T),
                              uiOutput('ycol'),
                              sliderInput("datefilter","Date range:",
@@ -34,12 +35,7 @@ shinyUI(fluidPage(
                                          step = 1,
                                          value=daterange,
                                          timeFormat='%Y-%m-%d'),
-                             dateInput("vline","Date marker:"
-                                       ,min = min(daterange)
-                                       ,max = max(daterange)
-                                       ,value=median(daterange)
-                                       ,width='150px'
-                             )
+                             # )
             ),
                              # sliderInput("vline","Date marker:"
                              #             ,min = min(daterange)
@@ -52,8 +48,8 @@ shinyUI(fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-             plotOutput("distPlot")
-            ,plotlyOutput("plotlyVersion")
+             #plotOutput("distPlot")
+            plotlyOutput("plotlyVersion")
         )
     )
 ))
